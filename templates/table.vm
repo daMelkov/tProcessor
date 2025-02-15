@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS ${schema}.${name};
+
+CREATE TABLE ${schema}.${name}
+(
+    id serial,
+    #foreach ($column in $columns)
+    $column.name $column.type,
+    #end
+    CONSTRAINT PK_${schema}_${name}_0 PRIMARY KEY
+);

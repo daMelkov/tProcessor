@@ -1,0 +1,3 @@
+ templatePath: templates\\
+ dataPath: c:\\db\\data\\
+ outputPath: c:\\db\\output\\

@@ -1,0 +1,34 @@
+package ru.sovcombank.utils;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import ru.sovcombank.config.AppProperties;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.lang.reflect.Type;
+import java.util.Map;
+
+public class Utils {
+    public static String getContent(String fileName) {
+        File file = new File(fileName);
+        StringBuilder strBuilder = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                strBuilder.append(line).append("\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strBuilder.toString();
+    }
+
+    public static Map<String, Object> getJsonData(String fileName) {
+        Gson gson = new Gson();
+        Type type = new TypeToken<Map<String, Object>>(){}.getType();
+
+        return gson.fromJson(getContent(fileName), type);
+    }
+}

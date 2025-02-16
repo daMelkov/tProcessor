@@ -2,13 +2,13 @@ package ru.sovcombank.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import ru.sovcombank.config.AppProperties;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.Objects;
 
 public class Utils {
     public static String getContent(String fileName) {
@@ -30,5 +30,14 @@ public class Utils {
         Type type = new TypeToken<Map<String, Object>>(){}.getType();
 
         return gson.fromJson(getContent(fileName), type);
+    }
+
+    public static void clearFolder(String path) {
+        File directory = new File(path);
+        for(File file : Objects.requireNonNull(directory.listFiles())) {
+            if(file.exists()) {
+                file.delete();
+            }
+        }
     }
 }

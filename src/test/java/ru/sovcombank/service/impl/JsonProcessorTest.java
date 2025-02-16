@@ -7,10 +7,7 @@ import ru.sovcombank.config.AppProperties;
 import ru.sovcombank.service.TemplateProcessor;
 import ru.sovcombank.utils.Utils;
 
-import java.io.File;
-import java.util.Objects;
-
-class JsonTemplateProcessorTest {
+class JsonProcessorTest {
     private static final String contentTemplateFile = "template.vm";
     private static final String contentDataFile = "content.json";
     private static final String outputFile = "result.script";
@@ -24,17 +21,12 @@ class JsonTemplateProcessorTest {
 
     @BeforeEach
     public void clearOutput() {
-        File directory = new File(outputPath);
-        for(File file : Objects.requireNonNull(directory.listFiles())) {
-            if(file.exists()) {
-                file.delete();
-            }
-        }
+        Utils.clearFolder(outputPath);
     }
 
     @Test
     public void text_process_hello_world() {
-        TemplateProcessor processor = new JsonTemplateProcessor(contentTemplateFile, outputFile, contentDataFile);
+        TemplateProcessor processor = new JsonProcessor(contentTemplateFile, outputFile, contentDataFile);
         processor.run();
 
         String expected = """
@@ -53,7 +45,7 @@ class JsonTemplateProcessorTest {
     @Test
     public void text_process_table() {
 
-        TemplateProcessor processor = new JsonTemplateProcessor(tableTemplateFile, tableOutputFile, tableDataFile);
+        TemplateProcessor processor = new JsonProcessor(tableTemplateFile, tableOutputFile, tableDataFile);
         processor.run();
 
         String expected = """

@@ -1,6 +1,6 @@
 package ru.sovcombank.config;
 
-import ru.sovcombank.service.impl.JsonTemplateProcessor;
+import ru.sovcombank.service.impl.JsonProcessor;
 
 import java.util.Properties;
 
@@ -20,7 +20,7 @@ public class AppProperties {
         createInstance();
 
         try {
-            instance.load(JsonTemplateProcessor.class.getClassLoader().getResourceAsStream("application.yml"));
+            instance.load(JsonProcessor.class.getClassLoader().getResourceAsStream("application.yml"));
             return instance.getProperty(propertyName);
         } catch (Exception e) {
             throw new RuntimeException(e);

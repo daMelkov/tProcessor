@@ -19,11 +19,6 @@ public class JsonTemplateProcessor implements TemplateProcessor {
     private final String absoluteOutputPath;
     private final VelocityContext context;
 
-//    public JsonTemplateProcessor(String templatePath, String outputPath, Map<String, Object> content) {
-//        context = getVelocityContext(content);
-//        absoluteTemplatePath = AppProperties.getProperty("templatePath") + templatePath;
-//        absoluteOutputPath = AppProperties.getProperty("outputPath") + outputPath;
-//    }
 
     public JsonTemplateProcessor(String templatePath, String outputPath, String dataPath) {
         absoluteTemplatePath = AppProperties.getProperty("templatePath") + templatePath;

@@ -25,7 +25,7 @@ class JsonProcessorTest {
     }
 
     @Test
-    public void text_process_hello_world() {
+    public void test_process_hello_world() {
         TemplateProcessor processor = new JsonProcessor(contentTemplateFile, outputFile, contentDataFile);
         processor.run();
 
@@ -43,7 +43,7 @@ class JsonProcessorTest {
     }
 
     @Test
-    public void text_process_table() {
+    public void test_process_table() {
 
         TemplateProcessor processor = new JsonProcessor(tableTemplateFile, tableOutputFile, tableDataFile);
         processor.run();
@@ -62,5 +62,26 @@ class JsonProcessorTest {
         String actual = Utils.getContent(outputPath + tableOutputFile);
 
         Assertions.assertEquals(expected, actual, "Ожидался иной результат формирования документа.");
+    }
+
+    @Test
+    public void test_process_create_procedure() {
+        TemplateProcessor processor = new JsonProcessor("procedure_r.vm", "read_procedure.sql", tableDataFile);
+        processor.run();
+
+        String expected = """
+                DROP TABLE IF EXISTS table_schema.table_name;
+                
+                CREATE TABLE table_schema.table_name
+                (
+                    id serial,
+                    name varchar(100),
+                    date_create timestamptz,
+                    CONSTRAINT PK_table_schema_table_name_0 PRIMARY KEY
+                );
+                """;
+        String actual = Utils.getContent(outputPath + "read_procedure.sql");
+
+        Assertions.assertEquals(expected, actual, "Ожидался иной результат для скрипта процедуры чтения.");
     }
 }

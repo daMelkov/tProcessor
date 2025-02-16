@@ -1,0 +1,24 @@
+if object_id('${schema}.ins_${name}') is not null
+    drop procedure ${schema}.ins_${name}
+go
+
+create procedure ${schema}.ins_${name}
+#foreach ($column in $columns)
+@$column.name $column.type,
+#end
+as
+begin
+    insert into ${schema}.${name}
+    (
+        #foreach ($column in $columns)
+            $column.name,
+        #end
+    )
+    values
+    (
+        #foreach ($column in $columns)
+        @$column.name $column.type,
+        #end
+    )
+end
+go

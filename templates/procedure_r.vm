@@ -1,0 +1,14 @@
+if object_id('${schema}.get_${name}') is not null
+    drop procedure ${schema}.get_${name}
+go
+
+create procedure ${schema}.get_${name}
+as
+begin
+    select
+    #foreach ($column in $columns)
+        $column.name,
+    #end
+    from ${schema}.get_${name} as $name.substring(0, 1).toLowerCase()
+end
+go
